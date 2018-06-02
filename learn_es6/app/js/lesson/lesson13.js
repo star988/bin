@@ -92,15 +92,5 @@
 	}).catch((err)=>{
 		console.log(err)
 	})
-
-These sentences are a little difficult for me
-
-I'm not saying, I'm sorry
-
-Can I just listen to this class?
-
-My English is a little poor now
-
-"terminal.external.windowsExec": "D:\\Program Files\\Git\\git-bash.exe",
 }
 
