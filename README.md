@@ -1,3 +1,4 @@
+
 ==Heading==
 
 ===Sub-heading===
@@ -39,3 +40,4 @@ Inline <abbr title="Hypertext Markup Language">HTML</abbr> is supported.
 |}
 
 [Correct link syntax](http://www.example.com/)
+Creating a new branch is quick & simple.
