@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>mvp</title>
+</head>
+
+<body>
+  <section>
+    <input type="text" id="input">
+    <button id="btn">提交</button>
+    <ul id="list"></ul>
+  </section>
+  <script src="./jquery.js"></script>
+  <script>
+    $(function () {
+      let Page = function () {
+
+      }
+      $.extend(Page.prototype, {
+        init() {
+          this.bindEvent()
+        },
+        bindEvent() {
+          $('#btn').on('click', $.proxy(this.handleBtnClick, this))
+        },
+        handleBtnClick() {
+          let inputDom = $('#input');
+          let inputValue = inputDom.val();
+          let ulDom = $('#list');
+          ulDom.append('<li>'+inputValue+'</li>');
+          inputDom.val('');
+        }
+      })
+      let page = new Page();
+      page.init()
+    })
+  </script>
+
+</body>
+
+</html>
