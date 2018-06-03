@@ -19,7 +19,7 @@ class Parent {
 }
 
 export default {
-    A,
-    fn,
-    Parent
+	A,
+	fn,
+	Parent
 }
