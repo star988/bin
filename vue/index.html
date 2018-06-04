@@ -12,22 +12,22 @@
 <body>
   <section id="app">
     <input type="text" v-model="inputValue">
-    <button v-on:click="handleBtnClick">提交</button>
+    <button v-on:click="handleBtnClick">提交111</button>
     <ul v-for="item in list" :key="item.id">
       <li>{{item}}</li>
     </ul>
   </section>
   <script>
     let vm = new Vue({
-      el:'#app',
-      data:{
-        list:[],
-        inputValue:''
+      el: '#app',
+      data: {
+        list: [],
+        inputValue: ''
       },
-      methods:{
-        handleBtnClick(){
+      methods: {
+        handleBtnClick() {
           this.list.push(this.inputValue);
-          this.inputValue='';
+          this.inputValue = '';
         }
       }
     })
