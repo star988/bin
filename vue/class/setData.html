@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>setData</title>
+  <script src="../vue.js"></script>
+</head>
+
+<body>
+  <section id="app">
+    <ul>
+      <li v-for="(item,index) in list" :key="item.id">{{index}}---{{item.text}}</li>
+    </ul>
+    <ul>
+      <li v-for="(item,key) in info">{{key}}---{{item}}</li>
+    </ul>
+  </section>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        list: [{
+            id:'001',
+            text:'Hello'
+          },
+          {
+            id:'002',
+            text:'World'
+          }
+        ],
+        info:{
+          name:'simba',
+          age:30
+        }
+      }
+    })
+    //TODO: 实例方法$set添加或修改数据
+    vm.$set(vm.list,2,{id:'003',text:'new content'})
+    Vue.set(vm.list,0,{id:'001',text:'content change'})
+    vm.$delete(vm.list,2)
+    vm.$set(vm.info,'shenzhen','address')
+    Vue.set(vm.info,'favorite','orange')
+  </script>
+</body>
+
+</html>

@@ -12,14 +12,14 @@
 <body>
   <section id="app">
     <ul>
-      <li v-for="(item,index) of list" :key="item.id">{{item.text}}---{{index}}</li>
+      <li v-for="(item,index) of list" :key="item.id">{{index}}---{{item.text}}</li>
     </ul>
     <template v-for="(item,index) in list">
-      <div>{{item.text}}---{{index}}</div>
+      <div>{{index}}---{{item.text}}</div>
     </template>
 
     <ul>
-        <li v-for="(item,key,index) of userInfo" :key="key">{{item}}---{{key}}---{{index}}</li>
+        <li v-for="(item,key,index) of userInfo" :key="key">{{index}}---{{key}}---{{item}}</li>
     </ul>
 
   </section>
