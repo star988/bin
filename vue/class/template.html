@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>template syntax</title>
+  <script src="../vue.js"></script>
+</head>
+
+<body>
+  <section id="app">
+    <p>{{content}}</p>
+    <p v-text="content"></p>
+    <p v-html="content"></p>
+    <div>{{title}}</div>
+    <div v-text="title"></div>
+    <div v-html="title"></div>
+  </section>
+  <script>
+    let vm = new Vue({
+      el: "#app",
+      data: {
+        content: 'hello simba',
+        title: '<h1>hello simba</h1>'
+      }
+    })
+  </script>
+</body>
+
+</html>

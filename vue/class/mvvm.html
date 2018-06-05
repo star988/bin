@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>mvvm and mvp</title>
+  <script src="../vue.js"></script>
+  <script src="../jquery.js"></script>
+</head>
+
+<body>
+  <section id="app">
+    <input type="text" v-model="inputValue">
+    <button @click="handleBtnClick">submit</button>
+    <ul>
+      <li v-for="item in list">{{item}}</li>
+    </ul>
+  </section>
+  <section id="container" style="padding-top: 30px">
+    <input type="text" id="input">
+    <button id="btn">submit</button>
+    <ul id="list"></ul>
+  </section>
+  <script>
+    // TODO: vue实现的mvvm模式，将视图与数据模型建立关联，通过虚拟Dom树与对象属性检查实现Dom渲染，这部分是vm自动完成开发者不需再直接操作dom对视图更新，页面由多个组件（多个vue实例）组成并可相互调用传值等，实现业务逻辑，数据模型，视图之间的解耦，高聚合，高复用，易维护等
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        list: [],
+        inputValue: '',
+      },
+      methods: {
+        handleBtnClick() {
+          this.list.push(this.inputValue);
+          this.inputValue = '';
+        }
+      }
+    })
+
+
+    // TODO: 用jquery实现mvp   mv边缘化，而presenter逻辑很重且大部是在操作Dom，难于维护，逻辑与Dom耦合高
+    function Page() {
+
+    }
+    $.extend(Page.prototype, {
+      init() {
+        this.bindEvent()
+      },
+      bindEvent() {
+        $('#btn').on('click', $.proxy(this.handleBtnClick, this));
+      },
+      handleBtnClick() {
+        let inputDom = $('#input');
+        let value = inputDom.val();
+        let listDom = $('#list');
+        listDom.append('<li>' + value + '</li>');
+        inputDom.val('');
+      }
+    })
+    new Page().init()
+  </script>
+</body>
+
+</html>
