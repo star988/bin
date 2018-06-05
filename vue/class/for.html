@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>for循环遍历</title>
+  <script src="../vue.js"></script>
+</head>
+
+<body>
+  <section id="app">
+    <ul>
+      <li v-for="(item,index) of list" :key="item.id">{{item.text}}---{{index}}</li>
+    </ul>
+    <template v-for="(item,index) in list">
+      <div>{{item.text}}---{{index}}</div>
+    </template>
+
+    <ul>
+        <li v-for="(item,key,index) of userInfo" :key="key">{{item}}---{{key}}---{{index}}</li>
+    </ul>
+
+  </section>
+  <script>
+    // TODO: 数组操作只能通过vue提供的方法操作或者重新赋值来改变引用地址,而对象只能通过重新赋值来改变引用地址的方式
+    // push pop unshift shift sort reverse splice
+
+    //of and in 都可以遍历数组和对象
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        list: [{
+            id: '001',
+            text: 'simba'
+          },
+          {
+            id: '002',
+            text: 30
+          },
+          {
+            id: '003',
+            text: 'orange'
+          },
+        ],
+        userInfo:{
+          name:'jiangxing',
+          age:18,
+          favorite:'cherry'
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

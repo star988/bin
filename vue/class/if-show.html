@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>if and show</title>
+  <script src="../vue.js"></script>
+</head>
+
+<body>
+  <section id="app">
+    <div v-if="show">{{msg}}</div>
+    <div v-show="show">{{msg}}</div>
+    <br/>
+    <div v-if="status==='a'">status is {{status}}</div>
+    <div v-else-if="status==='b'">status is {{status}}</div>
+    <div v-else>status is {{status}}</div>
+    <br/>
+    <div v-if="user">
+      用户名：<input type="text" key="username">
+    </div>
+    <div v-else>
+      邮箱名：<input type="text" key="password">
+    </div>
+  </section>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        msg: 'Hello World',
+        show: true,
+        status: 'a',
+        user:true,
+      }
+    })
+  </script>
+</body>
+
+</html>
