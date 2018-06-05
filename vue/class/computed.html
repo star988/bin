@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>computed proprety</title>
+  <script src="../vue.js"></script>
+</head>
+
+<body>
+  <section id="app">
+    <p>{{methodsName()+' '+age}}</p>
+    <p>{{watchName}}</p>
+    <p>{{fullName}}</p>
+    <p>{{content}}</p>
+  </section>
+  <script>
+    let vm = new Vue({
+      el: "#app",
+      data: {
+        fristName: 'hello',
+        lastName: 'world',
+        age: 30,
+        watchName: 'hello world',
+      },
+      methods: {
+        methodsName() {
+          // TODO: 每次数据更新都会执行，即使没有改变传入计算参数
+          console.log('method modify proprety')
+          return this.fristName + " " + this.lastName;
+        }
+      },
+      watch: {
+        // TODO: 可以缓存数据，但使用起来比较繁琐
+        fristName() {
+          console.log('watch modify proprety')
+          this.watchName = this.fristName + ' ' + this.lastName
+        },
+        lastName() {
+          console.log('watch modify proprety')
+          this.watchName = this.fristName + ' ' + this.lastName
+        }
+      },
+      computed: {
+        // TODO: 可以缓存数据，并易于使用
+        fullName() {
+          console.log('computed modify proprety')
+          return this.fristName + " " + this.lastName;
+        },
+
+        // getting setting 的运用
+        content: {
+          get() {
+            console.log('getting')
+            return this.fristName + " " + this.lastName;
+          },
+          set() {
+            console.log('setting')
+            let arr = this.content.split(" ")
+            // this.fristName = arr[1];
+            // this.lastName = arr[0];
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

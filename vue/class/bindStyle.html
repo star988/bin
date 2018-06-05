@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>bindStyle</title>
+  <script src="../vue.js"></script>
+  <style>
+    .activated {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <section id="app">
+    <p :class="{activated:red,row:true}" @click="objectClass">object class</p>
+    <p :class="[activated,row]" @click="arrayClass">array class</p>
+    <p :style="styleObj" @click="objectStyle">object style</p>
+    <p :style="[styleArray,{fontSize:'20px',background:'#f0f0f0'}]">array style</p>
+  </section>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        activated: '',
+        red: false,
+        row: 'row',
+        styleObj: {
+          color: '',
+          fontSize: '20px'
+        },
+        styleArray:{
+          color:'pink'
+        }
+      },
+      methods: {
+        objectClass() {
+          this.red = !this.red;
+        },
+        arrayClass() {
+          this.activated = this.activated === 'activated' ? '' : 'activated';
+        },
+        objectStyle() {
+          this.styleObj.color = this.styleObj.color === '' ? 'red' : '';
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
