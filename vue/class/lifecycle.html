@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>lifycycle</title>
+  <script src="../vue.js"></script>
+</head>
+
+<body>
+  <section id="app">{{content}}</section>
+  <script>
+    let vm = new Vue({
+      // el:'#app',
+      data: {
+        list: ['123', '987']
+      },
+      template: '<article><todo-item></todo-item></article>',
+      components: {
+        TodoItem: {
+          template: '<li>自定义模板</li>'
+        }
+      },
+      methods: {
+        handle() {}
+      },
+      computed: {
+        content() {
+          console.log('computed')
+          return this.list[0] + ' ' + this.list[1];
+        }
+      },
+      watch: {
+        list() {
+          console.log('list change')
+        }
+      },
+      beforeCreate() {
+        // TODO: init Events&lifecycle 初始化内部事件以及生命周期
+        console.log('beforeCreate')
+        console.log(this.$data) // undefined
+      },
+      created() {
+        // TODO: init injections&reactivity 初始化注入相关的数据，方法等 比如data methods watch等
+        console.log('created')
+        console.log(this.list) // ['123','987']
+        console.log(this.$el) // undefined
+      },
+
+      // FIXME:  has "el" option?=>has "template" option? 判断el以及template
+      // TODO:created后检查是否有传el,如果有定义并能找到则检查是否定义内部模板template，如果有定义但不能找到则报错但会继续执行下面的生命周期函数，如果没有定义则停止往下执行直到vue实例调用$mount(el)成功，则继续检查内部模板template
+
+      // FIXME: 1.'template' is yes=>compile template into render function
+      // 解析模板并执行定义的模板渲染函数(components)
+      // 2.'template' is no=>compile el's outerHTML as template
+      // 解析接管区域html并将其当做模板，如果有自定义组件
+      beforeMount() {
+        console.log('beforeMount', this.$el); // 可以找到Dom
+      },
+      mounted() {
+        // TODO: create vm.$el and replace "el" with it 将解析模板替换并挂载到页面后
+        this.list = ['hello', 'world']
+        console.log('mounted', this.$el)
+      },
+      // TODO: mounted 完成 并且when data changes
+      beforeUpdate(){
+        // 数据更新前
+        console.log('beforeUpdate')
+      },
+      updated(){
+        // 数据更新完毕
+        console.log('updated')
+      },
+      beforeDestroy(){
+        // TODO: 调用vm.$destory后，(销毁前)
+        console.log('beforeDestroy')
+      },
+      destroyed(){
+        // TODO: 销毁完成
+        console.log('destroyed')
+      }
+    })
+    vm.$mount('#app')
+  </script>
+</body>
+
+</html>
