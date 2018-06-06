@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,80 @@
   <title>component-poss-parameter</title>
   <script src="../vue.js"></script>
 </head>
+
 <body>
-  <section id="app"></section>
+  <section id="app">
+    <counter :count="number" @change="handleChange"></counter>
+    <counter :count="number" @change="handleChange"></counter>
+    <div>{{total}}</div>
+  </section>
+  <section id="root">
+    <name name="simba"></name>
+    <name name="Lion King"></name>
+  </section>
   <script>
     // TODO: 父组件与子组件相互传参的方式 单向数据流的规定等，例：counter
-
+    Vue.component('counter', {
+      data: function () {
+        return {
+          number: this.count
+        }
+      },
+      props: {
+        count: {
+          type: Number
+        }
+      },
+      template: '<div @click="handleClick">{{number}}</div>',
+      methods: {
+        handleClick() {
+          // this.count+=2 //报错，改变了父类传参
+          this.number += 2
+          this.$emit('change', 2)
+        }
+      }
+    })
+    let vm = new Vue({
+      el: "#app",
+      data: {
+        number: 0,
+        total: 0,
+      },
+      methods: {
+        handleChange(val) {
+          this.total += val
+        }
+      }
+    })
     // FIXME: 非父子组件的传值解决方法（难点） bus/总线/发布订阅者模式/观察者模式
+    Vue.prototype.bus = new Vue()
+    Vue.component('name', {
+      props: {
+        name: String
+      },
+      data: function () {
+        return {
+          selfName: this.name
+        }
+      },
+      template: '<div @click="handleClick">{{selfName}}</div>',
+      methods: {
+        handleClick() {
+          this.$emit('change',this.selfName)
+          this.bus.$emit('change', this.selfName)
+        }
+      },
+      mounted() {
+        let _this = this;
+        this.bus.$on('change', function (val) {
+          _this.selfName = val;
+        })
+      }
+    })
+    let root = new Vue({
+      el: '#root',
+    })
   </script>
 </body>
+
 </html>
