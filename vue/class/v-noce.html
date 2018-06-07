@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>slot插槽再vue中的运用</title>
+  <script src="../vue.js"></script>
+</head>
+
+<body>
+  <section id="app">
+    <component :is="type"></component>
+    <child-one v-if="type==='child-one'"></child-one>
+    <child-two v-else></child-two>
+    <button @click="handleBtnClick">change</button>
+  </section>
+  <script>
+    // TODO: v-once 在内容不变动的情况下，可以加v-once将组件保存在内存
+    // TODO: component Vue定义的动态组件
+  Vue.component('child-one',{
+    template:'<div v-once>child-one</div>'
+  })
+  Vue.component('child-two',{
+    template:'<div v-once>child-two</div>'
+  })
+  let vm = new Vue({
+    el:'#app',
+    data:{
+      type:'child-one'
+    },
+    methods:{
+      handleBtnClick(){
+        this.type=this.type==='child-one' ? 'child-two':'child-one';
+      }
+    }
+  })
+  </script>
+</body>
+
+</html>
