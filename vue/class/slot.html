@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>slot插槽再vue中的运用</title>
+  <script src="../vue.js"></script>
+</head>
+
+<body>
+  <section id="app">
+    <body-content>
+      <h1 class="header" slot="header">this is header</h1>
+      <h2 class="footer" slot="footer">this is footer</h2>
+    </body-content>
+    <todo-list>
+        <template slot="li" slot-scope="props">
+            <li>{{props.index}}----{{props.value}}</li>
+        </template>
+    </todo-list>
+  </section>
+  <script>
+    // TODO: slot的具名 以及作用域
+    Vue.component('bodyContent', {
+      template: `<div>
+                  <slot name="header">default content</slot>
+                  <div>this is body</div>
+                  <slot name="footer">default content</slot>
+                </div>`
+    })
+    Vue.component('todoList', {
+      data() {
+        return {
+          list: ['symtax','progeremer', 'skin', 'lotion', 'cream']
+        }
+      },
+      template: `<div>
+                   <ul>
+                      <slot name="li" v-for="(item,index) in list" :value="item" :index="index"></slot>
+                   </ul>
+                </div>`
+    })
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        title: 'hello'
+      }
+    })
+  </script>
+</body>
+
+</html>
