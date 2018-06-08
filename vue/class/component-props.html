@@ -8,11 +8,39 @@
   <script src="../vue.js"></script>
 </head>
 <body>
-  <section id="app"></section>
+  <section id="app">
+    <body-content :content="name" picker="activated" class="theme-drek"></body-content>
+    <!-- <body-content :age="age"></body-content> -->
+  </section>
   <script>
     // TODO: props特性以及传递校检，非props特性
     // props特性 父传子接，传递的属性不会被熏染
     // 非props 父传子不接，则不能使用，且会将组件定义的属性渲染出来
+
+      Vue.component('body-content',{
+        inheritAttrs:false,  //不继承根元素的特性
+        props:{
+          content:{
+            type:String,
+            required:true,
+            default(){
+              return 'simba'
+            },
+            validator(){
+              return true
+            }
+          }
+        },
+        template:'<div class="input">{{content}}</div>'
+      })
+      let vm = new Vue({
+        el:'#app',
+        data:{
+          name:'Hello simba',
+          age:30
+        }
+      })
+
   </script>
 </body>
 </html>
