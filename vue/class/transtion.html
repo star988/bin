@@ -8,6 +8,7 @@
   <title>Vue-transtion</title>
   <link rel="stylesheet" href="../animate.css">
   <script src="../vue.js"></script>
+  <script src="../Velocity.js"></script>
 </head>
 <style>
   .v-enter,
@@ -49,14 +50,14 @@
     :duration="4000"
     appear
     >
-      <h1 v-if="bol">this transition</h1>
+      <h1 v-if="bol">this is css transition</h1>
     </transition>
 
     <transition
       appear
       name="scale"
     >
-      <h1 v-if="bol">this keyframes</h1>
+      <h1 v-if="bol">this is css keyframes</h1>
     </transition>
 
     <transition
@@ -65,19 +66,81 @@
       enter-active-class="animated swing v-enter-active"
       leave-active-class="animated tada v-leave-active"
     >
-      <h1 v-if="bol">this animated</h1>
+      <h1 v-if="bol">this is animated</h1>
+    </transition>
+    <transition
+      name="animate-js"
+      @before-enter="handleBeforeEnter"
+      @enter="handleEnter"
+      @after-enter="handleAfterEnter"
+    >
+      <h1 v-if="bol">this is js animate</h1>
+    </transition>
+    <transition
+      name="Velocity"
+      @before-leave="handleBeforeLeave"
+      @leave="handleLeave"
+      @after-leave="handleAfterLeave"
+    >
+    <h1 v-if="bol">this is Velocity animate</h1>
+    </transition>
+
+    <transition
+      mode="out-in"
+    >
+      <h1 v-if="bol" key="Hello">Hello World</h1>
+      <h1 v-else key="Bye">Bye World</h1>
+    </transition>
+
+    <transition mode="out-in">
+      <child v-if="bol"></child>
+      <child-one v-else></child-one>
+    </transition>
+    <transition mode="out-in">
+      <component :is="type"></component>
     </transition>
     <button @click="handBtnClick">toggle</button>
   </section>
   <script>
+    Vue.component('child',{
+      template:'<h1>child</h1>',
+    })
+    Vue.component('child-one',{
+      template:'<h1>child-one</h1>',
+    })
     let vm = new Vue({
       el: '#app',
       data: {
         bol: true,
+        type:'child'
       },
       methods: {
         handBtnClick() {
           this.bol = !this.bol;
+          this.type=this.type==='child' ? 'child-one' : 'child';
+        },
+        handleBeforeEnter(el){
+          el.style.cssText="color:red"
+        },
+        handleEnter(el,done){
+          setTimeout(()=>{
+            el.style.cssText="color:green"
+          },2000)
+          setTimeout(()=>{
+            done()
+          },4000)
+        },
+        handleAfterEnter(el){
+          el.style.cssText="color:black"
+        },
+        handleBeforeLeave(el){
+          el.style.cssText="opacity:1"
+        },
+        handleLeave(el,done){
+          Velocity(el,{opacity:0},{duration:2000,complate:done,display:'none'})
+        },
+        handleAfterLeave(el){
+
         }
       }
     })
