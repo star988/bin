@@ -9257,7 +9257,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+		value: true
 	});
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9278,13 +9278,13 @@
 	var fn = function fn() {};
 
 	var Parent = function Parent() {
-	    _classCallCheck(this, Parent);
+		_classCallCheck(this, Parent);
 	};
 
 	exports.default = {
-	    A: A,
-	    fn: fn,
-	    Parent: Parent
+		A: A,
+		fn: fn,
+		Parent: Parent
 	};
 
 /***/ })
