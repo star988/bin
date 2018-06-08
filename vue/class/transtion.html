@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue-transtion</title>
+  <link rel="stylesheet" href="../animate.css">
+  <script src="../vue.js"></script>
+</head>
+<style>
+  .v-enter,
+  .v-leave-to {
+    opacity: 0;
+  }
+
+  .v-enter-active,
+  .v-leave-active {
+    transition: opacity 2s;
+  }
+
+  .scale-enter-active {
+    transform-origin: left center;
+    animation: scale 2s;
+  }
+
+  .scale-leave-active {
+    transform-origin: left center;
+    animation: scale 2s reverse;
+  }
+
+  @keyframes scale {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+</style>
+
+<body>
+  <section id="app">
+    <transition
+    :duration="4000"
+    appear
+    >
+      <h1 v-if="bol">this transition</h1>
+    </transition>
+
+    <transition
+      appear
+      name="scale"
+    >
+      <h1 v-if="bol">this keyframes</h1>
+    </transition>
+
+    <transition
+      type="transition"
+      appear
+      enter-active-class="animated swing v-enter-active"
+      leave-active-class="animated tada v-leave-active"
+    >
+      <h1 v-if="bol">this animated</h1>
+    </transition>
+    <button @click="handBtnClick">toggle</button>
+  </section>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        bol: true,
+      },
+      methods: {
+        handBtnClick() {
+          this.bol = !this.bol;
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
