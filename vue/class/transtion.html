@@ -100,7 +100,29 @@
       <component :is="type"></component>
     </transition>
     <button @click="handBtnClick">toggle</button>
+
+     <!-- list transition -->
+    <div>
+      <input type="text" v-model="inputValue">
+      <button @click="handleAddList">提交</button>
+    </div>
+    <ul>
+      <transition-group>
+        <todo-list
+         v-for="(item,index) in list"
+        :item="item"
+        key="count"
+        >
+        </todo-list>
+      </transition-group>
+    </ul>
+
+    <fade-animate>
+      <h3>animate component</h3>
+    </fade-animate>
   </section>
+
+
   <script>
     Vue.component('child',{
       template:'<h1>child</h1>',
@@ -108,11 +130,38 @@
     Vue.component('child-one',{
       template:'<h1>child-one</h1>',
     })
+
+    Vue.component('todo-list',{
+      props:['item'],
+      template:`<li>{{item}}</li>`
+    })
+
+    Vue.component('fade-animate',{
+      template:`<transition
+                appear
+                name="fade-component"
+                @before-enter="fadeBeforeEnter"
+                @enter="fadeEnter"
+                >
+                  <slot></slot>
+                </transition>`,
+      methods:{
+        fadeBeforeEnter(el){
+          el.style.cssText="opcity:1"
+        },
+        fadeEnter(el,done){
+          Velocity(el,{opacity:0},{duration:2000,complate:done})
+        }
+      }
+    })
     let vm = new Vue({
       el: '#app',
       data: {
         bol: true,
-        type:'child'
+        type:'child',
+        inputValue:'',
+        count:0,
+        list:[]
       },
       methods: {
         handBtnClick() {
@@ -141,6 +190,11 @@
         },
         handleAfterLeave(el){
 
+        },
+        handleAddList(){
+          this.count++
+          this.list.push(this.inputValue);
+          this.inputValue='';
         }
       }
     })
